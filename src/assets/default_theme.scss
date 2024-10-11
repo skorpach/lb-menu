@@ -55,6 +55,7 @@
     --color-border: var(--theme-light-secondary);
     --color-shadow: var(--c-secondary-darker-80);
     --color-background-active: var(--c-secondary-lighter-40);
+    --color-hero-background-grad: linear-gradient(var(--theme-light-primary) var(--theme-light-accent));
 
     // Text colors
     --color-heading: var(--theme-light-text);
@@ -93,4 +94,18 @@
 
 @mixin bright-hover {
     @include hover-brightness(120%);
+}
+
+@mixin background-image($blur: true) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    @if $blur {
+	filter: brightness(0.75) blur(1px);
+    } @else {
+	filter: brightness(0.75);
+    }
 }

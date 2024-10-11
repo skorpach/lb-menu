@@ -69,10 +69,7 @@ const emit = defineEmits(['close']);
 	height: 140px;
 	
 	> img {
-	    position: absolute;
-	    height: 100%;
-	    width: 100%;
-	    object-fit: cover;
+	    @include theme.background-image(false);
 	}
     }
     

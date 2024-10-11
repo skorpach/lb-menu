@@ -33,17 +33,21 @@ const groups = computed(() => {
 <style>
 .badgeset > span {
     height: 100%;
-}
+    
+    > .badgeset-icon {
+	margin-inline: 3px;
+	height: 100%;
+	max-height: 40px;
+	top: 0;
+	bottom: 0;
 
-.badgeset > span > .badgeset-icon {
-    margin-inline: 3px;
-    height: 100%;
-    max-height: 40px;
-    top: 0;
-    bottom: 0;
-}
-
-.badgeset > span > .badgeset-icon:nth-child(n+2) {
-    margin-left: -0.5em;
+	> img {
+	    /* TODO: Style the icons appropriately */
+	}
+    }
+    
+    > .badgeset-icon:nth-child(n+2) {
+	margin-left: -0.5em;
+    }
 }
 </style>
