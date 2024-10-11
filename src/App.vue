@@ -1,5 +1,5 @@
 <script setup>
-import { provide, ref, onMounted } from 'vue';
+import { provide, ref, onMounted, watch } from 'vue';
 import ParallaxSplash from '@/components/ParallaxSplash.vue';
 import Menu from '@/components/Menu.vue';
 import OrderIcon from '@/components/ordering/OrderIcon.vue';
@@ -9,7 +9,9 @@ import defaults from '@/defaults'
 
 const resto = useRestaurantStore();
 
-document.title = `Project Lunchbox: ${resto.details.name}`;
+watch(resto.details.name, async (name) => {
+    document.title = `Project Lunchbox: ${name}`;
+});
 
 const config = resto.config;
 provide('config', config);
@@ -28,7 +30,6 @@ function onBodyClick(event){
 onMounted(() => {
     document.body.addEventListener('click', onBodyClick);
 });
-
 </script>
 
 <template>
