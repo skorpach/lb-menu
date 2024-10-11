@@ -1,0 +1,43 @@
+<svg height="0" width="0"
+     style="position: absolute; margin: -100%;"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="hero-text-inset">
+      <feOffset
+      	  dy="1"
+	  dx="0"
+      	  />
+
+      <feGaussianBlur
+      	  stdDeviation="2"
+      	  result="offset-blur"
+      	  />
+      
+      <feComposite
+      	  operator="out"
+      	  in="SourceGraphic"
+      	  in2="offset-blur"
+      	  result="inverse"
+      	  />
+
+      <feFlood
+      	  flood-color="black"
+      	  flood-opacity=".95"
+      	  result="color"
+      	  />
+
+      <feComposite
+      	  operator="in"
+      	  in="color"
+      	  in2="inverse"
+      	  result="shadow"
+      	  />
+
+      <feComposite
+      	  operator="over"
+      	  in="shadow"
+      	  in2="SourceGraphic"
+      	  />
+    </filter>
+  </defs>
+</svg>

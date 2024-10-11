@@ -1,6 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import { useMenuStore } from '@/stores/menu'
+
+const menu = useMenuStore()
 </script>
 
 <template>
@@ -18,6 +21,9 @@ import HelloWorld from './components/HelloWorld.vue'
   </header>
 
   <RouterView />
+  <div>
+    {{ menu.active }}
+  </div>
 </template>
 
 <style scoped>
