@@ -5,6 +5,7 @@ import Menu from '@/components/Menu.vue';
 import OrderIcon from '@/components/ordering/OrderIcon.vue';
 import OrderReview from '@/components/ordering/OrderReview.vue';
 import menudata from '@/assets/menudata';
+import defaults from '@/defaults'
 
 
 // import yaml from 'js-yaml';
@@ -18,9 +19,9 @@ document.title = 'Bistrosnap Alpha';
 const config = {
     showItemIds: false,
     showItemSummary: true,
-    showMenuFooter: true,
+    showMenuFooter: false,
     showMenuOptions: false,
-    enableOrderBuilder: true,
+    enableOrderBuilder: false,
     accordion: true,
     formatPrice: p => '$' + p.toFixed(2)
 };
@@ -45,7 +46,7 @@ onMounted(() => {
 <template>
 <header class="app-header">
   <div class="header-logo">
-    <a href="https://golfuture.net">
+    <a :href="defaults.dummyUrl">
       <img src="@/assets/johns_grill.svg"/>
     </a>
   </div>
