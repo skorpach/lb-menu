@@ -33,7 +33,9 @@ const emit = defineEmits(['close']);
 </div>
 </template>
 
-<style>
+<style lang="scss">
+@use "@/assets/default_theme" as theme;
+
 .dmodal-blocker {
     position: fixed;
     left: 0;
@@ -46,6 +48,8 @@ const emit = defineEmits(['close']);
 }
 
 .dmodal {
+    @include theme.item-shadow;
+    
     position: fixed;
     left: 50%;
     top: 50%;
@@ -57,9 +61,43 @@ const emit = defineEmits(['close']);
     border-radius: 2.5rem;
     overflow: hidden;
     opacity: 1;
-
+    
     animation-duration: 0.25s;
     animation-name: slidein;
+    
+    > .dmodal-header {
+	height: 140px;
+	
+	> img {
+	    position: absolute;
+	    height: 100%;
+	    width: 100%;
+	    object-fit: cover;
+	}
+    }
+    
+    > .dmodal-header > .dmodal-titlebar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding-inline: 4ch;
+	color: white;
+	border-radius: 0 20px 0 0;
+    }
+    
+    > .dmodal-content {
+	padding: 2.5rem;
+	padding-top: 1rem;
+    }
+    
+    > .dmodal-button-container {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	display: flex;
+	flex-flow: row reverse nowrap;
+	justify-content: end;
+    }
 }
 
 @keyframes slidein {
@@ -74,41 +112,8 @@ const emit = defineEmits(['close']);
     }
 }
 
-.dmodal > .dmodal-header {
-    height: 140px;
-}
-
-.dmodal > .dmodal-header > .dmodal-titlebar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding-inline: 4ch;
-    color: white;
-    border-radius: 0 20px 0 0;
-}
-
-.dmodal > .dmodal-header > img {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
-.dmodal > .dmodal-content {
-    padding: 2.5rem;
-    padding-top: 1rem;
-}
-
-.dmodal > .dmodal-button-container {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    display: flex;
-    flex-flow: row reverse nowrap;
-    justify-content: end;
-}
-
 .sm-button.sm-close {
+    @include theme.bright-hover;
     height: 0.8em;
     width: 0.8em;
     border-radius: 50%;
@@ -126,11 +131,19 @@ const emit = defineEmits(['close']);
     user-select: none;
     background: #c83826;
     color: white;
-    transition: filter 0.15s;
     z-index: 4;
 }
 
-.sm-button:hover {
-    filter: brightness(80%);
+.dmodal {
+    background: white;
+    color: var(--color-text);
+}
+
+.dmodal > .dmodal-header {
+    background: var(--color-label-bg-dark);
+}
+
+.dmodal > .dmodal-header > .dmodal-titlebar {
+    background: var(--color-label-bg-dark);
 }
 </style>

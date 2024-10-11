@@ -18,10 +18,11 @@
 
 :root {
     --theme-light-bg: #f5faf7;
-    --theme-light-primary: #4ce992;
+    --theme-light-primary: #1bb760;
     --theme-light-secondary: #c6dddc;
     --theme-light-accent: #eab741;
     --theme-light-text: #0b150f;
+    // Override theme colors with document.documentElement.style.setProperty()
 }
 
 /* Computed colors */
@@ -31,84 +32,65 @@
 
     @each $c in $colors{
 	@each $s in $shades{
-	    --c-#{$c}-#{$s}: color-mix(in hsl, #fff, var(--theme-light-#{$c}) #{$s}%);
+	    --c-#{$c}-lighter-#{$s}: color-mix(in hsl, #fff, var(--theme-light-#{$c}) #{100 - $s}%);
+	}
+    }
+
+    @each $c in $colors{
+	@each $s in $shades{
+	    --c-#{$c}-darker-#{$s}: color-mix(in hsl, #000, var(--theme-light-#{$c}) #{100 - $s}%);
 	}
     }
 }
 
 /* semantic color variables for this project */
 :root {
-    --color-subbackground: var(--theme-light-bg);
+    // Element Colors
+    --color-subbackground: var(--c-primary-darker-40);
     --color-background: var(--theme-light-bg);
     --color-item-background: var(--theme-light-bg);
     --color-item-alt-background: var(--theme-light-bg);
     --color-item-divider: var(--c-accent-beige);
+    --color-item-background-dark: var(--theme-light-primary);
     --color-border: var(--theme-light-secondary);
-    --color-shadow: var(--theme-light-text);
+    --color-shadow: var(--c-secondary-darker-80);
+    --color-background-active: var(--c-secondary-lighter-40);
 
+    // Text colors
     --color-heading: var(--theme-light-text);
     --color-text: var(--theme-light-text);
-    --color-text-dark: var(--theme-light-text);
+    --color-text-dark: var(--c-accent-20);
 
     --color-label-bg-dark: var(--theme-light-bg);
-    --color-header-bg: var(--theme-light-secondary);
-    --color-footer-bg: var(--theme-light-secondary);
+    --color-header-bg: var(--c-secondary-darker-80);
+    --color-footer-bg: var(--theme-light-text);
 }
 
-#app {
-    background: var(--color-background);
-}
-
-#app > .app-header {
-    background: var(--color-header-bg);
-    box-shadow: 0 3px 4px var(--color-shadow);
-    color: var(--color-text);
-}
-
-#app > .app-footer {
-    background: var(--color-footer-bg);
-    color: var(--color-text);
-    font-size: 16px;
-}
-
-/* Base theme styling */
-.description.description-dark {
-    color: var(--color-text);
-}
-
-.description.description-light {
+@mixin dark-colors {
+    background: var(--color-background-dark);
     color: var(--color-text-dark);
 }
 
-/* Menuitem style */
-.menuitem {
-    color: var(--color-text);
-    box-shadow: 0 2px 4px var(--color-shadow);
+@mixin white-text {
+    color: white;
 }
 
-.menuitem-title {
-    font-size: 1.25rem;
-    font-weight: normal;
+@mixin item-shadow {
+    box-shadow: 0 1px 3px var(--color-shadow);
 }
 
-.menuitem-number {
-    color: var(--c-accent-beige);
+@mixin hover-brightness($brightness) {
+    transition: filter 0.15s;
+
+    &:hover {
+	filter: brightness($brightness);
+    }
 }
 
-.menuitem:active {
-    background: var(--c-bg-darker);
+@mixin dark-hover {
+    @include hover-brightness(80%);
 }
 
-/* Modal style */
-.dmodal {
-    background: white;
-    color: var(--color-text);
-}
-
-.dmodal > .dmodal-header {
-    background: var(--color-label-bg-dark);
-}
-
-.dmodal > .dmodal-header > .dmodal-titlebar {
-    background: var(--color-label-bg-dark);
+@mixin bright-hover {
+    @include hover-brightness(120%);
 }

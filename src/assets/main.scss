@@ -1,29 +1,91 @@
-@import "./default_theme.scss";
-@import "./base.css";
+////////////////////
+// Theming
+////////////////////
+@use "./default_theme" as theme;
+
+////////////////////
+// Base styling
+////////////////////
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+}
+
+body {
+    color: var(--color-text);
+    background: var(--color-subbackground);
+    transition: color 0.5s, background-color 0.5s;
+    line-height: 1.6;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+		 Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+header, footer {
+    h1, h2, h3 {
+	@include theme.white-text;
+    }
+    z-index: 100;
+}
+
+h1, h2, h3 {
+    text-transform: uppercase;
+    color: var(--color-heading);
+
+    &.sunken {
+	text-transform: uppercase;
+	filter: url(@/assets/filters.svg#hero-text-inset) drop-shadow(0 0 2px #2228);
+	user-select: none;
+	font-weight: bold;
+	color: white;
+    }
+}
+
+p.description {
+    font-style: italic;
+    font-size: 1rem;
+}
+
+button.hoverstyled,
+div.hoverstyled {
+    filter: none;
+    box-shadow: none;
+    transition: filter 0.1s,
+		box-shadow 0.05s;
+}
+
+button.hoverstyled:hover,
+div.hoverstyled:hover {
+    filter: brightness(115%);
+}
+
+button.hoverstyled:active,
+div.hoverstyled:active {
+    filter: brightness(115%);
+    box-shadow: 1px 2px 4px inset var(--color-shadow);
+}
+
+////////////////////
+// Layout
+////////////////////
 
 /* Parent container layout */
 
 #app {
-  max-width: 1000px;                                                    
-  font-weight: normal;
-  margin-inline: auto;
+    max-width: 1000px;                                                    
+    font-weight: normal;
+    margin-inline: auto;
 }
 
 @media (hover: hover) {
   a:hover {
-    background-color: var(--c-accent-light-corn);
+    background-color: var(--theme-light-accent);
   }
 }
-
-/* @media (min-width: 1024px) { */
-/*   body { */
-/*     display: flex; */
-/*     place-items: center; */
-/*   } */
-
-/*   #app { */
-/*     display: grid; */
-/*     grid-template-columns: 1fr 1fr; */
-/*     padding: 0 2rem; */
-/*   } */
-/* } */

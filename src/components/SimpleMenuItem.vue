@@ -35,56 +35,78 @@ const symbolSrc = computed(() => badges(props.badges, 'black'));
 </div>
 </template>
 
-<style>
+<style lang="scss">
+@use "@/assets/default_theme" as theme;
+
 .menuitem {
+    @include theme.item-shadow;
+    
     display: grid;
     grid-template-columns: 1fr 60px;
     gap: 10px;
     padding: 2px 8px;
-}
-
-.menuitem.is-menuitem-id-visible {
-    grid-template-columns: 30px 1fr 60px;
-}
-
-.menuitem .symbol {
-    height: 1em;
-}
-
-.menuitem > .menuitem-number {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.menuitem > .menuitem-name {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-}
-
-.menuitem > .menuitem-name > span {
-    display: flex;
-    gap: 5px;
-    align-items: baseline;
-}
-
-.menuitem .menuitem-title {
-    display: inline;
-    margin-right: 2px;
-}
-
-.menuitem .menuitem-price {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-style: italic;
-    text-align: right;
+    
+    &.is-menuitem-id-visible {
+	grid-template-columns: 30px 1fr 60px;
+    }
+    
+    &:active {
+	background: var(--color-background-active);
+	transition: background 0.1s;
+    }
+    
+    .symbol {
+	height: 1em;
+    }
+    
+    > .menuitem-title {
+	font-size: 1.25rem;
+	font-weight: normal;
+	display: inline;
+	margin-right: 2px;
+    }
+    
+    > .menuitem-number {
+	color: var(--c-accent-darker-60);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    }
+    
+    > .menuitem-name {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	
+	> span {
+	    display: flex;
+	    gap: 5px;
+	    align-items: baseline;
+	}
+    }
+    
+    .menuitem-price {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	font-style: italic;
+	text-align: right;
+    }
 }
 
 .badgeset.badgeset-simple-item {
     height: 16px;
     align-self: center;
+}
+
+.description {
+    &.description-dark {
+	color: var(--color-text);
+    }
+    
+    &.description-light {
+	color: var(--color-text-dark);
+    }
 }
 </style>

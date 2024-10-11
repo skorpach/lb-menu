@@ -56,34 +56,49 @@ onMounted(() => {
 </footer>
 </template>
 
-<style>
+<style lang="scss">
+  @use "@/assets/default_theme" as theme;
+
 #app {
     display: block;
     --footer-height: 32px;
     --header-height: 48px;
     padding-bottom: var(--footer-height);
     padding-top: var(--header-height);
-}
-
-#app > .app-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: var(--header-height);
-    width: 100%;
-    z-index: 125;
-    padding-inline: 20px;
-    padding-block: 2px;
-
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    align-items: center;
-    text-align: center;
-    font-weight: bold;
-}
-
-#app > .app-header > * {
-    max-height: var(--header-height);
+    font-weight: normal;
+    
+    background: var(--theme-light-bg);
+    
+    > .app-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: var(--header-height);
+	width: 100%;
+	z-index: 125;
+	padding-inline: 20px;
+	padding-block: 2px;
+	
+	display: grid;
+	grid-template-columns: 1fr 2fr 1fr;
+	align-items: center;
+	text-align: center;
+	font-weight: bold;
+	
+	background: var(--color-header-bg);
+	box-shadow: 0 3px 4px var(--color-shadow);
+	color: var(--color-text);
+	
+	> * {
+	    max-height: var(--header-height);
+	}
+    }
+    
+    > .app-footer {
+	background: var(--color-footer-bg);
+	color: var(--color-text);
+	font-size: 16px;
+    }
 }
 
 .header-logo {
@@ -92,26 +107,26 @@ onMounted(() => {
     align-items: center;
     overflow-y: hidden;
     height: 100%;
-}
-
-.header-logo > * {
-    height: 100%;
-    width: 100%;
-}
-
-.header-logo > *:hover {
-    background: none;
-}
-
-.header-logo img {
-    height: 100%;
-    max-width: 100%;
-    object-position: center;
-    object-fit: contain;
-}
-
-.header-logo > *:hover > img {
-    filter: brightness(1.25);
+    
+    > * {
+	height: 100%;
+	width: 100%;
+    }
+    
+    > *:hover {
+	background: none;
+    }
+    
+    img {
+	height: 100%;
+	max-width: 100%;
+	object-position: center;
+	object-fit: contain;
+    }
+    
+    > *:hover > img {
+	filter: brightness(1.25);
+    }
 }
 
 #app > .app-footer {
@@ -126,10 +141,10 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
     overflow-y: hidden;
-}
-
-#app > .app-footer > .app-footer-logo {
-    height: 16px;
-    padding-left: 10px;
+    
+    > .app-footer-logo {
+	height: 16px;
+	padding-left: 10px;
+    }
 }
 </style>
