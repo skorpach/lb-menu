@@ -91,7 +91,6 @@ function sectionExpanded(sectIndex){
     display: flex;
     flex-direction: column;
     gap: 3px;
-    background: #201f27;
     padding-block: 4px;
     transition: filter 0.25s;
 }

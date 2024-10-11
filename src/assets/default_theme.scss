@@ -1,0 +1,114 @@
+/* Color Palette */
+// :root {
+//     --c-bg-darker: #141321;
+//     --c-bg-dark: #201f27;
+//     --c-bg-card-light: #dfe0d8;
+//     --c-bg-card-dark: #18171d;
+//     --c-bg-panel: #363948;
+//     --c-text-dark: var(--bg-dark);
+//     --c-text-light: white;
+//     --c-soft-white: #c1d2d8;
+//     --c-accent-beige: #aea386;
+//     --c-accent-dark-beige: #615743;
+//     --c-accent-light-corn: #5db2d2;
+//     --c-accent-dark-corn: #4073b2;
+//     --c-accent-darkest: #204285;
+//     --c-accent-border: #202535;    
+// }
+
+:root {
+    --theme-light-bg: #f5faf7;
+    --theme-light-primary: #4ce992;
+    --theme-light-secondary: #c6dddc;
+    --theme-light-accent: #eab741;
+    --theme-light-text: #0b150f;
+}
+
+/* Computed colors */
+:root {
+    $shades: 80, 60, 40, 20;
+    $colors: primary, secondary, accent;
+
+    @each $c in $colors{
+	@each $s in $shades{
+	    --c-#{$c}-#{$s}: color-mix(in hsl, #fff, var(--theme-light-#{$c}) #{$s}%);
+	}
+    }
+}
+
+/* semantic color variables for this project */
+:root {
+    --color-subbackground: var(--theme-light-bg);
+    --color-background: var(--theme-light-bg);
+    --color-item-background: var(--theme-light-bg);
+    --color-item-alt-background: var(--theme-light-bg);
+    --color-item-divider: var(--c-accent-beige);
+    --color-border: var(--theme-light-secondary);
+    --color-shadow: var(--theme-light-text);
+
+    --color-heading: var(--theme-light-text);
+    --color-text: var(--theme-light-text);
+    --color-text-dark: var(--theme-light-text);
+
+    --color-label-bg-dark: var(--theme-light-bg);
+    --color-header-bg: var(--theme-light-secondary);
+    --color-footer-bg: var(--theme-light-secondary);
+}
+
+#app {
+    background: var(--color-background);
+}
+
+#app > .app-header {
+    background: var(--color-header-bg);
+    box-shadow: 0 3px 4px var(--color-shadow);
+    color: var(--color-text);
+}
+
+#app > .app-footer {
+    background: var(--color-footer-bg);
+    color: var(--color-text);
+    font-size: 16px;
+}
+
+/* Base theme styling */
+.description.description-dark {
+    color: var(--color-text);
+}
+
+.description.description-light {
+    color: var(--color-text-dark);
+}
+
+/* Menuitem style */
+.menuitem {
+    color: var(--color-text);
+    box-shadow: 0 2px 4px var(--color-shadow);
+}
+
+.menuitem-title {
+    font-size: 1.25rem;
+    font-weight: normal;
+}
+
+.menuitem-number {
+    color: var(--c-accent-beige);
+}
+
+.menuitem:active {
+    background: var(--c-bg-darker);
+}
+
+/* Modal style */
+.dmodal {
+    background: white;
+    color: var(--color-text);
+}
+
+.dmodal > .dmodal-header {
+    background: var(--color-label-bg-dark);
+}
+
+.dmodal > .dmodal-header > .dmodal-titlebar {
+    background: var(--color-label-bg-dark);
+}
