@@ -1,91 +1,145 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-import { useMenuStore } from '@/stores/menu'
+import { provide, ref, onMounted } from 'vue';
+import ParallaxSplash from '@/components/ParallaxSplash.vue';
+import Menu from '@/components/Menu.vue';
+import OrderIcon from '@/components/ordering/OrderIcon.vue';
+import OrderReview from '@/components/ordering/OrderReview.vue';
+import menudata from '@/assets/menudata';
 
-const menu = useMenuStore()
+
+// import yaml from 'js-yaml';
+// import menuyml from '@/assets/menu-data.yml';
+
+// const menudata = yaml.load(menuyml);
+
+// import imageSrc from '@/assets/burger.jpg';
+document.title = 'Bistrosnap Alpha';
+
+const config = {
+    showItemIds: false,
+    showItemSummary: true,
+    showMenuFooter: true,
+    showMenuOptions: false,
+    enableOrderBuilder: true,
+    accordion: true,
+    formatPrice: p => '$' + p.toFixed(2)
+};
+
+provide('config', config);
+
+const showReview = ref(false);
+
+const orderReviewRef = ref(null);
+
+function onBodyClick(event){
+    if(!orderReviewRef.value.root.contains(event.target))
+	showReview.value = false;
+}
+
+onMounted(() => {
+    document.body.addEventListener('click', onBodyClick);
+});
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
-  <div>
-    {{ menu.active }}
+<header class="app-header">
+  <div class="header-logo">
+    <a href="https://golfuture.net">
+      <img src="@/assets/johns_grill.svg"/>
+    </a>
   </div>
+  <h3>MENU</h3>
+  <div v-if="config.showMenuOptions">Options</div>
+</header>
+<main>
+  <Menu :sections="menudata" :accordion="config.accordion"/>
+</main>
+<footer class="app-footer" v-if="config.showMenuFooter">
+  <em>Powered by</em>
+  <!-- <img class="app-footer-logo" src="@/assets/logo_white.svg"/> -->
+  <OrderIcon
+    v-if="config.enableOrderBuilder"
+    :active="showReview"
+    @click.stop="showReview = !showReview" />
+  <OrderReview :visible="showReview" ref="orderReviewRef"/>
+</footer>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<style>
+#app {
+    display: block;
+    --footer-height: 32px;
+    --header-height: 48px;
+    padding-bottom: var(--footer-height);
+    padding-top: var(--header-height);
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+#app > .app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: var(--header-height);
+    width: 100%;
+    z-index: 125;
+    padding-inline: 20px;
+    padding-block: 2px;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+#app > .app-header > * {
+    max-height: var(--header-height);
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
+.header-logo {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+    justify-content: center;
+    align-items: center;
+    overflow-y: hidden;
+    height: 100%;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.header-logo > * {
+    height: 100%;
+    width: 100%;
+}
 
-  header .wrapper {
+.header-logo > *:hover {
+    background: none;
+}
+
+.header-logo img {
+    height: 100%;
+    max-width: 100%;
+    object-position: center;
+    object-fit: contain;
+}
+
+.header-logo > *:hover > img {
+    filter: brightness(1.25);
+}
+
+#app > .app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--footer-height);
+    padding-block: 5px;
+    z-index: 125;
     display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+    justify-content: center;
+    align-items: center;
+    overflow-y: hidden;
+}
 
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+#app > .app-footer > .app-footer-logo {
+    height: 16px;
+    padding-left: 10px;
 }
 </style>
