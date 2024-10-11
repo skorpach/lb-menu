@@ -1,7 +1,8 @@
-import saladImg from '@/assets/salad.jpg';
-import burgerImg from '@/assets/burger.jpg';
-import drinksImg from '@/assets/drinks.jpg';
-import dessertImg from '@/assets/dessert.jpg';
+import salad from '@/assets/salad.jpg';
+import burger from '@/assets/burger.jpg';
+import drinks from '@/assets/drinks.jpg';
+import dessert from '@/assets/dessert.jpg';
+import logo from '@/assets/johns_grill.svg';
 
 function makeItem(name, price, summary, description, image, options){
     return {name, price, summary, description, image,
@@ -10,10 +11,12 @@ function makeItem(name, price, summary, description, image, options){
 	    ])};
 }
 
-export default [
+const assets = { salad, burger, drinks, dessert, logo };
+
+const menu = [
     {
 	title: 'drinks',
-	image: drinksImg,
+	image: 'drinks',
 	subsections: [
 	    {
 		title: 'beer',
@@ -52,7 +55,7 @@ export default [
     },{
 	title: 'sharables',
 	description: 'These items were designed to be enjoyed by more than one person, so save some for the rest of us, fatty.',
-	image: saladImg,
+	image: 'salad',
 	subsections: [
 	    {
 		title: 'salad',
@@ -128,7 +131,7 @@ export default [
 	]
     },{
 	title: 'handhelds',
-	image: burgerImg,
+	image: 'burger',
 	subsections: [
 	    {
 		title: 'burgers',
@@ -199,10 +202,31 @@ export default [
 	],
     },{
 	title: 'dessert',
-	image: dessertImg,
+	image: 'dessert',
 	items: [
 	    makeItem('Butterscotch', 2.89, 'Butterworth brand hard candies'),
 	    makeItem('Worms in Dirt', 11.29, 'A gummy classic')
 	]
     }
 ];
+
+const config = {
+    showItemIds: false,
+    showItemSummary: true,
+    showMenuFooter: false,
+    showMenuOptions: false,
+    enableOrderBuilder: false,
+    accordion: true,
+    formatPrice: p => '$' + p.toFixed(2)
+};
+
+const details = {
+    name: 'Sample Restaurant and Bar',
+    address: '123 Sesame Street',
+    city: 'Calgary',
+    state: 'Alberta',
+    country: 'Canada',
+    logo: 'logo'
+};
+
+export default { config, menu, details, assets };

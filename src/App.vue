@@ -4,7 +4,7 @@ import ParallaxSplash from '@/components/ParallaxSplash.vue';
 import Menu from '@/components/Menu.vue';
 import OrderIcon from '@/components/ordering/OrderIcon.vue';
 import OrderReview from '@/components/ordering/OrderReview.vue';
-import menudata from '@/assets/menudata';
+import { useRestaurantStore } from '@/stores/restaurant';
 import defaults from '@/defaults'
 
 
@@ -14,26 +14,21 @@ import defaults from '@/defaults'
 // const menudata = yaml.load(menuyml);
 
 // import imageSrc from '@/assets/burger.jpg';
-document.title = 'Bistrosnap Alpha';
+document.title = 'Project Lunchbox Alpha';
 
-const config = {
-    showItemIds: false,
-    showItemSummary: true,
-    showMenuFooter: false,
-    showMenuOptions: false,
-    enableOrderBuilder: false,
-    accordion: true,
-    formatPrice: p => '$' + p.toFixed(2)
-};
+const resto = useRestaurantStore();
 
+const config = resto.config;
 provide('config', config);
+
+provide('getAsset', resto.getAsset);
 
 const showReview = ref(false);
 
 const orderReviewRef = ref(null);
 
 function onBodyClick(event){
-    if(!orderReviewRef.value.root.contains(event.target))
+    if(!orderReviewRef.value || !orderReviewRef.value.root.contains(event.target))
 	showReview.value = false;
 }
 
@@ -47,14 +42,14 @@ onMounted(() => {
 <header class="app-header">
   <div class="header-logo">
     <a :href="defaults.dummyUrl">
-      <img src="@/assets/johns_grill.svg"/>
+      <img :src="resto.assets.logo"/>
     </a>
   </div>
   <h3>MENU</h3>
   <div v-if="config.showMenuOptions">Options</div>
 </header>
 <main>
-  <Menu :sections="menudata" :accordion="config.accordion"/>
+  <Menu :sections="resto.menu" :accordion="config.accordion"/>
 </main>
 <footer class="app-footer" v-if="config.showMenuFooter">
   <em>Powered by</em>

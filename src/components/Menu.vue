@@ -8,7 +8,7 @@ import ItemDescriptionModal from '@/components/ItemDescriptionModal.vue';
 import OrderModal from '@/components/ordering/OrderModal.vue';
 
 import { useScreen } from 'vue-screen';
-import { ref, computed, watch, provide } from 'vue';
+import { ref, computed, watch, provide, inject } from 'vue';
 
 const props = defineProps(['sections', 'accordion']);
 
@@ -19,6 +19,8 @@ const itemAdding = ref(null);
 const mobileAspect = computed(() => screen.width < 1000);
 
 provide('order', {});
+
+const getAsset = inject('getAsset');
 
 watch(mobileAspect, aspect => console.log(aspect ? 'mobile' : 'desktop'));
 
@@ -47,7 +49,7 @@ function sectionExpanded(sectIndex){
 <div class="menu-content-area" :class="{'is-modal-active': itemSelected }">
   <Section
     v-for="(s, si) in props.sections"
-    :title="s.title" :image="s.image" :description="s.description"
+    :title="s.title" :image="getAsset(s.image)" :description="s.description"
     :expanded="sectionExpanded(si)"
     @activate="act => selectSection(si, act)">
     <SimpleMenuItem
@@ -68,7 +70,7 @@ function sectionExpanded(sectIndex){
 <ItemDescriptionModal
   :item="itemSelected"
   :title="itemSelected.name"
-  :image="itemSelected.image || props.sections[sectionSelected].image"
+  :image="getAsset(itemSelected.image || props.sections[sectionSelected].image)"
   v-if="itemSelected"
   @close="selectItem(null)"
   @addToOrder="addToOrder" />
@@ -76,7 +78,7 @@ function sectionExpanded(sectIndex){
   v-if="itemAdding"
   :item="itemAdding"
   :title="itemAdding.name"
-  :image="itemAdding.image || props.sections[sectionSelected].image"
+  :image="getAsset(itemAdding.image || props.sections[sectionSelected].image)"
   @close="addToOrder(null)"/>
 </template>
 
