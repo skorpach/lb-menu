@@ -7,16 +7,9 @@ import OrderReview from '@/components/ordering/OrderReview.vue';
 import { useRestaurantStore } from '@/stores/restaurant';
 import defaults from '@/defaults'
 
-
-// import yaml from 'js-yaml';
-// import menuyml from '@/assets/menu-data.yml';
-
-// const menudata = yaml.load(menuyml);
-
-// import imageSrc from '@/assets/burger.jpg';
-document.title = 'Project Lunchbox Alpha';
-
 const resto = useRestaurantStore();
+
+document.title = `Project Lunchbox: ${resto.details.name}`;
 
 const config = resto.config;
 provide('config', config);
